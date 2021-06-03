@@ -1,0 +1,7 @@
+name: sw_vers
+outputs:
+  macOS-version:
+    description: …
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
