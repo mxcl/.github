@@ -11,7 +11,7 @@ async function run() {
     core.setOutput("macOS", matches[1])
 
     stdout = await exec('swift', ['--version'])
-    matches = stdout.match(/Swift version (.+)\b/m)
+    matches = stdout.match(/Swift version (.+?)\s/m)
     if (!matches[1]) throw new Error("Regex match for `swift --version` failed")
     core.setOutput("swift", matches[1])
 
