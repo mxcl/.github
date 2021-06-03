@@ -1,0 +1,11 @@
+name: persist
+inputs:
+  key:
+    description: …
+    required: true
+  value:
+    description: …
+    required: false
+runs:
+  using: node12
+  main: dist/index.js

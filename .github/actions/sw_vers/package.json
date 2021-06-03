@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "prepare": "ncc build index.js --minify"
+  },
+  "devDependencies": {
+    "@actions/core": "^1.3.0",
+    "@actions/exec": "^1.0.4",
+    "@vercel/ncc": "^0.28.6"
+  }
+}
