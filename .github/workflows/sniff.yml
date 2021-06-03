@@ -21,8 +21,12 @@ jobs:
       id: sw_vers
     - uses: ./.github/actions/persist
       with:
-        key: ${{ matrix.os }}
-        value: ${{ steps.sw_vers.outputs.macOS-version }}
+        key: ${{ matrix.os }}-version
+        value: ${{ steps.sw_vers.outputs.macOS }}
+    - uses: ./.github/actions/persist
+      with:
+        key: ${{ matrix.os }}-swift
+        value: ${{ steps.sw_vers.outputs.swift }}
 
   persist:
     runs-on: ubuntu-latest
@@ -32,7 +36,13 @@ jobs:
     - uses: ./.github/actions/persist
       id: sw_vers
       with:
-        key: macos-latest macos-10.15 macos-11
+        key: |
+          macos-latest-version
+          macos-10.15-version
+          macos-11-version
+          macos-latest-swift
+          macos-10.15-swift
+          macos-11-swift
     - uses: jsdaniell/create-json@v1
       with:
         name: versions.json
@@ -43,3 +53,5 @@ jobs:
     - run: git commit -m "[cron] $(date '+%Y-%m-%d')"
     - run: git push
       if: ${{ !github.event.pull_request }}
+    - run: cat versions.json | jq
+      if: ${{ github.event.pull_request }}

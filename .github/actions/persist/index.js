@@ -5,10 +5,10 @@ const artifact = require('@actions/artifact');
 
 const WORKDIR = join(process.cwd(), '.dev.mxcl');
 
-async function storeData(key, value){
+async function storeData(key, value) {
     const client = artifact.create();
     const file = join(WORKDIR, `${key}.txt`);
-    mkdirSync(WORKDIR);
+    mkdirSync(WORKDIR, { recursive: true });
     writeFileSync(file, value, { encoding: 'utf8' });
     await client.uploadArtifact(key, [file], process.cwd())
 }
