@@ -6,29 +6,11 @@ on:
     paths:
       - .github/workflows/sniff.yml
 jobs:
-  macOS:
+  os:
     strategy:
       matrix:
         os:
           - macos-10.15
-    runs-on: ${{ matrix.os }}
-    steps:
-    - uses: actions/checkout@v2
-    - uses: ./.github/actions/sw_vers
-      id: sw_vers
-    - uses: ./.github/actions/persist
-      with:
-        key: ${{ matrix.os }}-version
-        value: ${{ steps.sw_vers.outputs.os }}
-    - uses: ./.github/actions/persist
-      with:
-        key: ${{ matrix.os }}-swift
-        value: ${{ steps.sw_vers.outputs.swift }}
-
-  ubuntu:
-    strategy:
-      matrix:
-        os:
           - ubuntu-16.04
           - ubuntu-18.04
           - ubuntu-20.04
@@ -56,9 +38,9 @@ jobs:
     steps:
     - run: |
         for xcode in $(mdfind kMDItemCFBundleIdentifier = com.apple.dt.Xcode); do
-          v=$(mdls -raw -name kMDItemVersion "$xcode")
-          echo "XcodeVersions=$XcodeVersions $v" >> $GITHUB_ENV
+          v=$v $(mdls -raw -name kMDItemVersion "$xcode")
         done
+        echo "XcodeVersions=$v" >> $GITHUB_ENV
     - uses: actions/checkout@v2
     - uses: ./.github/actions/persist
       with:
@@ -68,8 +50,7 @@ jobs:
   persist:
     runs-on: ubuntu-latest
     needs:
-      - macOS
-      - ubuntu
+      - os
       - xcode
     steps:
     - uses: actions/checkout@v2
