@@ -20,7 +20,7 @@ async function run() {
       for (const line of readFileSync('/etc/os-release', {encoding: 'utf8'}).toString().split('\n')) {
         const [key, value] = line.split('=');
         if (key !== 'VERSION') continue;
-        const matches = value.match(/((\d\.)*\d+)/);
+        const matches = value.match(/((\d+\.)*\d+)\s/);
         if (matches && matches[1]) {
           core.setOutput('os', matches[1]);
           break;

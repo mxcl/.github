@@ -67,7 +67,10 @@ jobs:
 
   persist:
     runs-on: ubuntu-latest
-    needs: macOS
+    needs:
+      - macOS
+      - ubuntu
+      - xcode
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions/persist
