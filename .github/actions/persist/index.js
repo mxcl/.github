@@ -40,7 +40,7 @@ async function loadAllData(firstColumnTitle) {
 
   const values = {}
   for (rsp in downloadResponse) {
-    core.debug(rsp)
+    core.info(rsp)
     let value
     try {
       value = readFileSync(rsp.downloadPath, { encoding: 'utf8' }).toString();
