@@ -10,11 +10,8 @@ jobs:
     strategy:
       matrix:
         os:
-          - macos-latest
           - macos-10.15
-          - macos-11
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.os == 'macos-11' }}
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions/sw_vers
@@ -27,6 +24,15 @@ jobs:
       with:
         key: ${{ matrix.os }}-swift
         value: ${{ steps.sw_vers.outputs.swift }}
+
+  xcode:
+    strategy:
+      matrix:
+        os:
+          - macos-10.15
+    runs-on: ${{ matrix.os }}
+    steps:
+      - run: mdfind 'kMDItemCFBundleIdentifier = "com.apple.dt.Xcode"'
 
   persist:
     runs-on: ubuntu-latest
