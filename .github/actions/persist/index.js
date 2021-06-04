@@ -1,5 +1,5 @@
 const { join } = require('path');
-const { readFileSync, mkdirSync, writeFileSync } = require('fs');
+const { readFileSync, mkdirSync, writeFileSync, rmdirSync } = require('fs');
 const core = require('@actions/core');
 const artifact = require('@actions/artifact');
 
@@ -45,9 +45,10 @@ async function loadAllData(firstColumnTitle) {
     try {
       const fn = join(rsp.downloadPath, `${key}.txt`);
       value = readFileSync(fn, { encoding: 'utf8' }).toString();
+      rmdirSync(rsp.downloadPath, {recursive: true});
     } catch (error) {
-      core.warning(error)
-      value = null
+      core.warning(error);
+      value = null;
     }
     core.setOutput(key, value);
 

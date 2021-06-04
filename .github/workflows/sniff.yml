@@ -13,9 +13,9 @@ jobs:
           - macos-10.15
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v2
     - uses: ./.github/actions/sw_vers
       id: sw_vers
+    - uses: actions/checkout@v2
     - uses: ./.github/actions/persist
       with:
         key: ${{ matrix.os }}-version
@@ -33,11 +33,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - run: |
-        xcodes=$(mdfind kMDItemCFBundleIdentifier = com.apple.dt.Xcode)
-        for xcode in $xcodes; do
+        for xcode in $(mdfind kMDItemCFBundleIdentifier = com.apple.dt.Xcode); do
           v=$(mdls -raw -name kMDItemVersion "$xcode")
-          echo "$xcode | $v"
+          echo "XcodeVersions=$XcodeVersions $v" >> $GITHUB_ENV
         done
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions/persist
+      with:
+        key: ${{ matrix.os }}-xcodes
+        value: ${{ env.XcodeVersions }}
 
   persist:
     runs-on: ubuntu-latest
@@ -51,12 +55,10 @@ jobs:
     - uses: jsdaniell/create-json@v1
       with:
         name: versions.json
-        json: "${{ steps.sw_vers.outputs.json }}"
-    - run: git config user.name github-actions
-    - run: git config user.email github-actions@github.com
-    - run: git add versions.json
-    - run: git commit -m "[cron] $(date '+%Y-%m-%d')"
-    - run: git push
+        json: ${{ steps.sw_vers.outputs.json }}
+
+    - uses: stefanzweifel/git-auto-commit-action@v4
       if: ${{ !github.event.pull_request }}
+
     - run: cat versions.json | jq
       if: ${{ github.event.pull_request }}
