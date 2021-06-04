@@ -38,11 +38,11 @@ async function loadAllData(firstColumnTitle) {
   const client = artifact.create();
   const downloadResponse = await client.downloadAllArtifacts();
 
-  core.info(downloadResponse)
+  console.log(downloadResponse)
 
   const values = {}
-  for (rsp in downloadResponse) {
-    core.info(rsp)
+  for (const rsp of downloadResponse) {
+    console.log(rsp)
     let value
     try {
       value = readFileSync(rsp.downloadPath, { encoding: 'utf8' }).toString();
