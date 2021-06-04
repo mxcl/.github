@@ -10,7 +10,7 @@ async function storeData(key, value) {
     const file = join(WORKDIR, `${key}.txt`);
     mkdirSync(WORKDIR, { recursive: true });
     writeFileSync(file, value, { encoding: 'utf8' });
-    await client.uploadArtifact(key, [file], process.cwd())
+    await client.uploadArtifact(key, [file], WORKDIR)
 }
 
 async function loadData(keys){
@@ -38,19 +38,11 @@ async function loadAllData(firstColumnTitle) {
   const client = artifact.create();
   const downloadResponse = await client.downloadAllArtifacts();
 
-  const spawn = require('child_process').spawn;
-  spawn('find', ['.'], { stdio: 'inherit' });
-
-  console.log(downloadResponse)
-
   const values = {}
   for (const rsp of downloadResponse) {
-
-
-    console.log(rsp)
     let value
     try {
-      const fn = join(rsp.downloadPath, rsp.artifactName);
+      const fn = join(rsp.downloadPath, `${rsp.artifactName}.txt`);
       value = readFileSync(fn, { encoding: 'utf8' }).toString();
     } catch (error) {
       core.warning(error)
