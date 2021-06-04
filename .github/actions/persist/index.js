@@ -40,9 +40,10 @@ async function loadAllData(firstColumnTitle) {
 
   const values = {}
   for (const rsp of downloadResponse) {
+    const key = rsp.artifactName
     let value
     try {
-      const fn = join(rsp.downloadPath, `${rsp.artifactName}.txt`);
+      const fn = join(rsp.downloadPath, `${key}.txt`);
       value = readFileSync(fn, { encoding: 'utf8' }).toString();
     } catch (error) {
       core.warning(error)
