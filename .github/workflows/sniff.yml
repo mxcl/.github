@@ -38,7 +38,7 @@ jobs:
     steps:
     - run: |
         for xcode in $(mdfind kMDItemCFBundleIdentifier = com.apple.dt.Xcode); do
-          v=$v $(mdls -raw -name kMDItemVersion "$xcode")
+          v="$v $(mdls -raw -name kMDItemVersion $xcode)"
         done
         echo "XcodeVersions=$v" >> $GITHUB_ENV
     - uses: actions/checkout@v2
