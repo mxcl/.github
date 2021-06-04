@@ -55,15 +55,19 @@ jobs:
         for xcode in $(mdfind kMDItemCFBundleIdentifier = com.apple.dt.Xcode); do
           V=$(mdls -raw -name kMDItemVersion "$xcode")
           v="$v $V"
+          DEVELOPER_DIR="$xcode" xcrun simctl list --json devices available > xcode-$V.json
         done
         # sort for stable ordering
         v=$(echo $v | tr " " "\n" | sort -g | tr "\n" " ")
         echo "XcodeVersions=$v" >> $GITHUB_ENV
-    - uses: actions/checkout@v2
     - uses: ./.github/actions/persist
       with:
         key: ${{ steps.sw_vers.outputs.root-key }}-xcodes
         value: ${{ env.XcodeVersions }}
+    - uses: actions/upload-artifact@v2
+      with:
+        name: xcodes
+        path: xcode-*.json
 
   latest:
     runs-on: ${{ matrix.os }}
