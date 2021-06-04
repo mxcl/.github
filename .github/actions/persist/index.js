@@ -45,7 +45,8 @@ async function loadAllData(firstColumnTitle) {
     console.log(rsp)
     let value
     try {
-      value = readFileSync(rsp.downloadPath, { encoding: 'utf8' }).toString();
+      const fn = join(rsp.downloadPath, rsp.artifactName);
+      value = readFileSync(fn, { encoding: 'utf8' }).toString();
     } catch (error) {
       core.warning(error)
       value = null
