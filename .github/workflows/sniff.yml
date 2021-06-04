@@ -32,7 +32,12 @@ jobs:
           - macos-10.15
     runs-on: ${{ matrix.os }}
     steps:
-      - run: mdfind 'kMDItemCFBundleIdentifier = "com.apple.dt.Xcode"'
+    - run: |
+        xcodes=$(mdfind 'kMDItemCFBundleIdentifier = "com.apple.dt.Xcode"')
+        for xcode in $xcodes; do
+          v=$(xargs mdls -name kMDItemVersion)
+          echo "$xcode | $v"
+        done
 
   persist:
     runs-on: ubuntu-latest
