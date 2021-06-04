@@ -2,8 +2,11 @@ name: persist
 inputs:
   key:
     description: …
-    required: true
+    required: false
   value:
+    description: …
+    required: false
+  first-column:
     description: …
     required: false
 runs:

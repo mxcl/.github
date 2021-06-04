@@ -36,13 +36,7 @@ jobs:
     - uses: ./.github/actions/persist
       id: sw_vers
       with:
-        key: |
-          macos-latest-version
-          macos-10.15-version
-          macos-11-version
-          macos-latest-swift
-          macos-10.15-swift
-          macos-11-swift
+        first-column: os
     - uses: jsdaniell/create-json@v1
       with:
         name: versions.json
