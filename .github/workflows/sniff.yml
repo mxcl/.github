@@ -33,9 +33,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - run: |
-        xcodes=$(mdfind 'kMDItemCFBundleIdentifier = "com.apple.dt.Xcode"')
+        xcodes=$(mdfind kMDItemCFBundleIdentifier = com.apple.dt.Xcode)
         for xcode in $xcodes; do
-          v=$(xargs mdls -name kMDItemVersion)
+          v=$(mdls -name kMDItemVersion "$xcode")
           echo "$xcode | $v"
         done
 
