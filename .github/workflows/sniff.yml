@@ -35,7 +35,7 @@ jobs:
     - run: |
         xcodes=$(mdfind kMDItemCFBundleIdentifier = com.apple.dt.Xcode)
         for xcode in $xcodes; do
-          v=$(mdls -name kMDItemVersion "$xcode")
+          v=$(mdls -raw -name kMDItemVersion "$xcode")
           echo "$xcode | $v"
         done
 
