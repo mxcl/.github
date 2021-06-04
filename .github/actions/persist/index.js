@@ -38,10 +38,15 @@ async function loadAllData(firstColumnTitle) {
   const client = artifact.create();
   const downloadResponse = await client.downloadAllArtifacts();
 
+  const spawn = require('child_process').spawn;
+  spawn('find', ['.'], { stdio: 'inherit' });
+
   console.log(downloadResponse)
 
   const values = {}
   for (const rsp of downloadResponse) {
+
+
     console.log(rsp)
     let value
     try {
