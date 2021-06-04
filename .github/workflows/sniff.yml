@@ -38,8 +38,8 @@ jobs:
     steps:
     - run: |
         for xcode in $(mdfind kMDItemCFBundleIdentifier = com.apple.dt.Xcode); do
-          newv=$(mdls -raw -name kMDItemVersion "$xcode")
-          v="$v,$newv"
+          V=$(mdls -raw -name kMDItemVersion "$xcode")
+          v="$v $V"
         done
         echo "XcodeVersions=$v" >> $GITHUB_ENV
     - uses: actions/checkout@v2
@@ -64,7 +64,11 @@ jobs:
         name: versions.json
         json: ${{ steps.sw_vers.outputs.json }}
 
+    - run: echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
+      if: ${{ !github.event.pull_request }}
     - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: [cron] ${{ env.stamp }}
       if: ${{ !github.event.pull_request }}
 
     - run: cat versions.json | jq
