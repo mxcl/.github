@@ -68,7 +68,7 @@ jobs:
       if: ${{ !github.event.pull_request }}
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        commit_message: [cron] ${{ env.stamp }}
+        commit_message: '[cron] ${{ env.stamp }}'
       if: ${{ !github.event.pull_request }}
 
     - run: cat versions.json | jq
