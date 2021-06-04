@@ -38,6 +38,8 @@ async function loadAllData(firstColumnTitle) {
   const client = artifact.create();
   const downloadResponse = await client.downloadAllArtifacts();
 
+  core.info(downloadResponse)
+
   const values = {}
   for (rsp in downloadResponse) {
     core.info(rsp)
