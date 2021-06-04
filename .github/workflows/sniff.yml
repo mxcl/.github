@@ -35,14 +35,13 @@ jobs:
     continue-on-error: ${{ matrix.os == 'ubuntu-16.04' }}
     runs-on: ${{ matrix.os }}
     steps:
-    - run:
     - uses: actions/checkout@v2
     - uses: ./.github/actions/sw_vers
       id: sw_vers
     - uses: ./.github/actions/persist
       with:
         key: ${{ matrix.os }}-version
-        value: ${{ steps.sw_vers.outputs.macOS }}
+        value: ${{ steps.sw_vers.outputs.os }}
     - uses: ./.github/actions/persist
       with:
         key: ${{ matrix.os }}-swift
