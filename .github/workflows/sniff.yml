@@ -41,6 +41,8 @@ jobs:
           V=$(mdls -raw -name kMDItemVersion "$xcode")
           v="$v $V"
         done
+        # sort for stable ordering
+        v=$(echo $v | tr " " "\n" | sort -g | tr "\n" " ")
         echo "XcodeVersions=$v" >> $GITHUB_ENV
     - uses: actions/checkout@v2
     - uses: ./.github/actions/persist
