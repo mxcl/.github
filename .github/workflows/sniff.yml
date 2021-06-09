@@ -14,12 +14,22 @@ jobs:
   os:
     strategy:
       matrix:
-        os:
-          - macos-10.15
-          - ubuntu-16.04
-          - ubuntu-18.04
-          - ubuntu-20.04
-    continue-on-error: ${{ matrix.os == 'ubuntu-16.04' }}
+        include:
+          - os: macos-10.13
+            failable: true
+          - os: macos-10.14
+            failable: true
+          - os: macos-10.15
+            failable: false
+          - os: macos-11
+            failable: true
+          - os: ubuntu-16.04
+            failable: true
+          - os: ubuntu-18.04
+            failable: false
+          - os: ubuntu-20.04
+            failable: false
+    continue-on-error: ${{ matrix.failable }}
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
