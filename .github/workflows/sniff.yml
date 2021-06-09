@@ -50,11 +50,28 @@ jobs:
         key: ${{ matrix.os }}-xcodes
         value: ${{ env.XcodeVersions }}
 
+  latest:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions/sw_vers
+      id: sw_vers
+    - uses: ./.github/actions/persist
+      with:
+        key: ${{ matrix.os }}-latest
+        value: ${{ steps.sw_vers.outputs.os }}
+
   persist:
     runs-on: ubuntu-latest
     needs:
       - os
       - xcode
+      - latest
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions/persist
