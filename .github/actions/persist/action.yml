@@ -6,7 +6,7 @@ inputs:
   value:
     description: …
     required: false
-  first-column:
+  first-columns:
     description: …
     required: false
 runs:

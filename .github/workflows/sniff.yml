@@ -85,7 +85,7 @@ jobs:
     - uses: ./.github/actions/persist
       id: sw_vers
       with:
-        first-column: env
+        first-columns: name version
     - uses: jsdaniell/create-json@v1
       with:
         name: versions.json
