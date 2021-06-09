@@ -6,6 +6,8 @@ on:
     paths:
       - .github/workflows/sniff.yml
   push:
+    branches:
+      - master
     paths:
       - .github/workflows/sniff.yml
 jobs:
