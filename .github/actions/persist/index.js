@@ -31,7 +31,7 @@ async function loadData(keys){
       values.push({[key]: value})
     }
 
-    core.setOutput('json', JSON.stringify(values))
+    core.setOutput('json', JSON.stringify(values, null, 2))
 }
 
 async function loadAllData(firstColumnTitle) {
