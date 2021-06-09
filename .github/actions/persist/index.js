@@ -66,7 +66,7 @@ async function loadAllData(firstColumnTitle) {
   for (key in values) {
     json.push({[firstColumnTitle]: key, ...values[key]})
   }
-  core.setOutput('json', JSON.stringify(json))
+  core.setOutput('json', JSON.stringify(values, null, 2))
 }
 
 async function run(){
