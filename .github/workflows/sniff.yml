@@ -33,10 +33,6 @@ jobs:
       with:
         key: ${{ steps.sw_vers.outputs.root-key }}-swift
         value: ${{ steps.sw_vers.outputs.swift }}
-    - uses: ./.github/actions/persist
-      with:
-        key: ${{ steps.sw_vers.outputs.root-key }}-version
-        value: ${{ steps.sw_vers.outputs.os }}
 
   xcode:
     strategy:
@@ -89,7 +85,7 @@ jobs:
     - uses: ./.github/actions/persist
       id: sw_vers
       with:
-        first-column: env
+        first-columns: name version
     - uses: jsdaniell/create-json@v1
       with:
         name: versions.json

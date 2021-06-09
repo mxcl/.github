@@ -34,7 +34,7 @@ async function loadData(keys){
     core.setOutput('json', JSON.stringify(values, null, 2))
 }
 
-async function loadAllData(firstColumnTitle) {
+async function loadAllData(firstColumnTitles) {
   const client = artifact.create();
   const downloadResponse = await client.downloadAllArtifacts();
 
@@ -64,7 +64,11 @@ async function loadAllData(firstColumnTitle) {
 
   const json = []
   for (key in values) {
-    json.push({[firstColumnTitle]: key, ...values[key]})
+    const obj = {...values[key]}
+
+    key.split('-').forEach((x, i) => obj[firstColumnTitles[i]] = x)
+
+    json.push(obj)
   }
   core.setOutput('json', JSON.stringify(values, null, 2))
 }
@@ -73,7 +77,7 @@ async function run(){
   const inputs = {
     key: core.getInput('key'),
     value: core.getInput('value'),
-    firstColumn: core.getInput('first-column')
+    firstColumns: core.getInput('first-columns').split(' ')
   }
 
   if (inputs.value) {
@@ -81,7 +85,7 @@ async function run(){
   } else if (inputs.key) {
     await loadData(inputs.key.split(/\s+/))
   } else {
-    await loadAllData(inputs.firstColumn)
+    await loadAllData(inputs.firstColumns)
   }
 }
 
