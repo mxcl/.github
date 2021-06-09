@@ -70,7 +70,7 @@ async function loadAllData(firstColumnTitles) {
 
     json.push(obj)
   }
-  core.setOutput('json', JSON.stringify(values, null, 2))
+  core.setOutput('json', JSON.stringify(json, null, 2))
 }
 
 async function run(){
