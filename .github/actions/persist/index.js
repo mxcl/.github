@@ -77,7 +77,7 @@ async function run(){
   const inputs = {
     key: core.getInput('key'),
     value: core.getInput('value'),
-    firstColumns: core.getInput('first-columns').split(' ')
+    firstColumns: core.getInput('first-columns').split(/\s+/)
   }
 
   if (inputs.value) {
