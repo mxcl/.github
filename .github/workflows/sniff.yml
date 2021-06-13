@@ -34,7 +34,7 @@ jobs:
         key: ${{ steps.sw_vers.outputs.root-key }}-swift
         value: ${{ steps.sw_vers.outputs.swift }}
 
-    - run: env > ${{ martrix.os }}.env
+    - run: env > ${{ matrix.os }}.env
     - uses: actions/upload-artifact@v2
       with:
         name: ${{ matrix.os }}.env
