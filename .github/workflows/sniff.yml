@@ -34,6 +34,12 @@ jobs:
         key: ${{ steps.sw_vers.outputs.root-key }}-swift
         value: ${{ steps.sw_vers.outputs.swift }}
 
+    - run: env > ${{ martrix.os }}.env
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      if: ${{ !github.event.pull_request }}
+      with:
+        commit_message: '[cron] ${{ env.stamp }}'
+
   xcode:
     strategy:
       matrix:
