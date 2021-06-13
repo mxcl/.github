@@ -48,7 +48,7 @@ async function loadAllData(firstColumnTitles) {
       rmdirSync(rsp.downloadPath, {recursive: true});
     } catch (error) {
       core.warning(error);
-      value = null;
+      continue;
     }
     core.setOutput(key, value);
 
