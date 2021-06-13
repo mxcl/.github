@@ -36,9 +36,9 @@ jobs:
 
     - run: env > ${{ martrix.os }}.env
     - uses: actions/upload-artifact@v2
-        with:
-          name: ${{ martrix.os }}.env
-          path: ${{ martrix.os }}.env
+      with:
+        name: ${{ martrix.os }}.env
+        path: ${{ martrix.os }}.env
 
   xcode:
     strategy:
