@@ -99,7 +99,8 @@ jobs:
         json: ${{ steps.sw_vers.outputs.json }}
 
     - run: |
-        mv **/*.env .
+        mv *.env ..
+        mv ../*.env/*.env .
         git add *.env
 
     - run: echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
