@@ -35,10 +35,10 @@ jobs:
         value: ${{ steps.sw_vers.outputs.swift }}
 
     - run: env > ${{ martrix.os }}.env
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      if: ${{ !github.event.pull_request }}
-      with:
-        commit_message: '[cron] ${{ env.stamp }}'
+    - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ martrix.os }}.env
+          path: ${{ martrix.os }}.env
 
   xcode:
     strategy:
@@ -92,6 +92,7 @@ jobs:
       id: sw_vers
       with:
         first-columns: name version
+
     - uses: jsdaniell/create-json@v1
       with:
         name: versions.json
@@ -106,3 +107,5 @@ jobs:
 
     - run: cat versions.json | jq
       if: ${{ github.event.pull_request }}
+
+    - run: find .
