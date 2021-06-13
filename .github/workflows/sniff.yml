@@ -34,6 +34,12 @@ jobs:
         key: ${{ steps.sw_vers.outputs.root-key }}-swift
         value: ${{ steps.sw_vers.outputs.swift }}
 
+    - run: env > ${{ matrix.os }}.env
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.os }}.env
+        path: ${{ matrix.os }}.env
+
   xcode:
     strategy:
       matrix:
@@ -86,10 +92,16 @@ jobs:
       id: sw_vers
       with:
         first-columns: name version
+
     - uses: jsdaniell/create-json@v1
       with:
         name: versions.json
         json: ${{ steps.sw_vers.outputs.json }}
+
+    - run: |
+        mv *.env ..
+        mv ../*.env/*.env .
+        git add *.env
 
     - run: echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
       if: ${{ !github.event.pull_request }}
