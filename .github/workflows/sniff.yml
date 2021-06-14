@@ -24,7 +24,8 @@ jobs:
   os:
     needs: json
     strategy:
-      matrix: ${{fromJson(needs.json.outputs.matrix)}}
+      matrix:
+        os: ${{fromJson(needs.json.outputs.matrix)}}
     continue-on-error: ${{ matrix.os == 'ubuntu-16.04' }}
     runs-on: ${{ matrix.os }}
     steps:
