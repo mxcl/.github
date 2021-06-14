@@ -18,7 +18,11 @@ jobs:
         with:
           repository: actions/virtual-environments
 
-      - run: .github/actions/get-images.rb > images.json
+      - uses: actions/checkout@v2
+        with:
+          path: this
+
+      - run: this/.github/actions/get-images.rb > images.json
 
       - run: echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
         if: ${{ !github.event.pull_request }}
