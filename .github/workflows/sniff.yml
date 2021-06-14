@@ -37,7 +37,7 @@ jobs:
     - run: env > ${{ matrix.os }}.env
     - uses: actions/upload-artifact@v2
       with:
-        name: ${{ matrix.os }}.env
+        name: ${{ matrix.os }}.env.d
         path: ${{ matrix.os }}.env
 
   xcode:
@@ -99,7 +99,7 @@ jobs:
         json: ${{ steps.sw_vers.outputs.json }}
 
     - run: |
-        mv *.env ..
+        mv *.env.d ..
         mv ../*.env/*.env .
         git add *.env
 
