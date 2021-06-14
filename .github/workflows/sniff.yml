@@ -21,7 +21,7 @@ jobs:
     - id: read-json
       run: |
         JSON=$(cat images.json)
-        echo "::set-output name=matrix::${JSON//'%'/'%25'}"
+        echo "::set-output name=matrix::{"os": ${JSON//'%'/'%25'} }"
 
   os:
     needs: json
