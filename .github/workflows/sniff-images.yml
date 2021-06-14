@@ -1,0 +1,40 @@
+on:
+  schedule:
+    - cron: 4 5 * * *
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/sniff-images.yml
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/sniff-images.yml
+concurrency: sniff
+jobs:
+  sniff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: |
+          echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
+          git pull origin main --rebase
+        if: ${{ !github.event.pull_request }}
+
+      - uses: actions/checkout@v2
+        with:
+          repository: actions/virtual-environments
+          path: gha
+
+      - run: mv gha/images .
+      - run: .github/actions/get-images.rb > images.json
+      - run: rm -rf gha images
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: '[cron] images ${{ env.stamp }}'
+        if: ${{ !github.event.pull_request }}
+
+      - run: cat images.json
+        if: ${{ github.event.pull_request }}

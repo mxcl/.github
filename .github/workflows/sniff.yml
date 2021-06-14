@@ -10,6 +10,7 @@ on:
       - main
     paths:
       - .github/workflows/sniff.yml
+concurrency: sniff
 jobs:
   os:
     strategy:
@@ -34,10 +35,10 @@ jobs:
         key: ${{ steps.sw_vers.outputs.root-key }}-swift
         value: ${{ steps.sw_vers.outputs.swift }}
 
-    - run: env > ${{ matrix.os }}.env
+    - run: env | sort > ${{ matrix.os }}.env
     - uses: actions/upload-artifact@v2
       with:
-        name: ${{ matrix.os }}.env
+        name: ${{ matrix.os }}.env.d
         path: ${{ matrix.os }}.env
 
   xcode:
@@ -88,6 +89,12 @@ jobs:
       - latest
     steps:
     - uses: actions/checkout@v2
+
+    - run: |
+        echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
+        git pull origin main --rebase
+      if: ${{ !github.event.pull_request }}
+
     - uses: ./.github/actions/persist
       id: sw_vers
       with:
@@ -99,15 +106,12 @@ jobs:
         json: ${{ steps.sw_vers.outputs.json }}
 
     - run: |
-        mv *.env ..
-        mv ../*.env/*.env .
+        mv *.env.d/* .
         git add *.env
 
-    - run: echo "stamp=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
-      if: ${{ !github.event.pull_request }}
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        commit_message: '[cron] ${{ env.stamp }}'
+        commit_message: '[cron] env ${{ env.stamp }}'
       if: ${{ !github.event.pull_request }}
 
     - run: cat versions.json | jq
