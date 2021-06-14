@@ -12,14 +12,22 @@ on:
       - .github/workflows/sniff.yml
 concurrency: sniff
 jobs:
+  json:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.read-json.outputs.matrix }}
+    steps:
+    - uses: actions/checkout@v2
+    - id: read-json
+      run: |
+        JSON=$(cat images.json)
+        echo "::set-output name=matrix::${JSON//'%'/'%25'}"
+
   os:
+    needs: json
     strategy:
       matrix:
-        os:
-          - macos-10.15
-          - ubuntu-16.04
-          - ubuntu-18.04
-          - ubuntu-20.04
+        os: ${{fromJson(needs.json.outputs.matrix)}}
     continue-on-error: ${{ matrix.os == 'ubuntu-16.04' }}
     runs-on: ${{ matrix.os }}
     steps:
