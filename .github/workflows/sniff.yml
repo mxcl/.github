@@ -12,15 +12,22 @@ on:
       - .github/workflows/sniff.yml
 concurrency: sniff
 jobs:
+  json:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.read-json.outputs.matrix }}
+    steps:
+    - uses: actions/checkout@v2
+    - id: read-json
+      run: echo "::set-output name=matrix::$(cat images.json | jq -c)"
+
   os:
+    needs: json
     strategy:
       matrix:
-        os:
-          - macos-10.15
-          - ubuntu-16.04
-          - ubuntu-18.04
-          - ubuntu-20.04
-    continue-on-error: ${{ matrix.os == 'ubuntu-16.04' }}
+        os: ${{fromJson(needs.json.outputs.matrix)}}
+    continue-on-error: true
+    # ^^ some of the images we collect in sniff-images.yml are invalid
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
