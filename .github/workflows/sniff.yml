@@ -19,15 +19,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - id: read-json
-      run: |
-        JSON=$(cat images.json)
-        echo "::set-output name=matrix::{"os": ${JSON//'%'/'%25'} }"
+      run: echo "::set-output name=matrix::$(cat images.json | jq -c)"
 
   os:
     needs: json
     strategy:
-      matrix:
-        os: ${{fromJson(needs.json.outputs.matrix)}}
+      matrix: ${{fromJson(needs.json.outputs.matrix)}}
     continue-on-error: ${{ matrix.os == 'ubuntu-16.04' }}
     runs-on: ${{ matrix.os }}
     steps:
