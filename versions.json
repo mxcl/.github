@@ -9,10 +9,10 @@
   },
   {
     "env": "macos-11",
-    "swift": "5.4",
+    "swift": "5.4.2",
     "xcodes": "11.7 12.4 12.5 12.5.1 13.0",
     "name": "macOS",
-    "version": "11.5"
+    "version": "11.5.2"
   },
   {
     "env": "ubuntu-16.04",
