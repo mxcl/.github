@@ -12,7 +12,7 @@
     "swift": "5.4.2",
     "xcodes": "11.7 12.4 12.5 12.5.1 13.0",
     "name": "macOS",
-    "version": "11.5.2"
+    "version": "11.6"
   },
   {
     "env": "ubuntu-16.04",
@@ -22,14 +22,14 @@
   },
   {
     "env": "ubuntu-18.04",
-    "swift": "5.4.2",
+    "swift": "5.4.3",
     "name": "ubuntu",
     "version": "18.04.5"
   },
   {
     "env": "ubuntu-20.04",
     "latest": "true",
-    "swift": "5.4.2",
+    "swift": "5.4.3",
     "name": "ubuntu",
     "version": "20.04.3"
   }
