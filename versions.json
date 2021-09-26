@@ -18,7 +18,7 @@
     "env": "ubuntu-18.04",
     "swift": "5.4.3",
     "name": "ubuntu",
-    "version": "18.04.5"
+    "version": "18.04.6"
   },
   {
     "env": "ubuntu-20.04",
