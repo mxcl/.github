@@ -10,20 +10,20 @@
   {
     "env": "macos-11",
     "swift": "5.5",
-    "xcodes": "11.7 12.4 12.5.1 13.0 13.0 13.1",
+    "xcodes": "11.7 12.4 12.5.1 13.0 13.0 13.1 13.2",
     "name": "macOS",
-    "version": "11.6"
+    "version": "11.6.1"
   },
   {
     "env": "ubuntu-18.04",
-    "swift": "5.5",
+    "swift": "5.5.1",
     "name": "ubuntu",
     "version": "18.04.6"
   },
   {
     "env": "ubuntu-20.04",
     "latest": "true",
-    "swift": "5.5",
+    "swift": "5.5.1",
     "name": "ubuntu",
     "version": "20.04.3"
   }
