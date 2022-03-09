@@ -22,12 +22,8 @@
   },
   {
     "env": "ubuntu-20.04",
-    "swift": "5.5.3",
-    "name": "ubuntu",
-    "version": "20.04.3"
-  },
-  {
     "latest": "true",
+    "swift": "5.5.3",
     "name": "ubuntu",
     "version": "20.04.4"
   }
