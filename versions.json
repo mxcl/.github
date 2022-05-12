@@ -15,6 +15,12 @@
     "version": "11.6.5"
   },
   {
+    "env": "macos-12",
+    "swift": "5.6",
+    "name": "macOS",
+    "version": "12.3.1"
+  },
+  {
     "env": "ubuntu-18.04",
     "swift": "5.6.1",
     "name": "ubuntu",
