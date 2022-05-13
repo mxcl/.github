@@ -1,8 +1,7 @@
 [
-  "macOS-12",
   "macOS-11",
+  "macOS-12",
   "macOS-10.15",
   "ubuntu1804",
-  "ubuntu2204",
   "ubuntu2004"
 ]
