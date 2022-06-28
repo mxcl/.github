@@ -29,7 +29,7 @@
   {
     "env": "ubuntu-20.04",
     "latest": "true",
-    "swift": "5.6.1",
+    "swift": "5.6.2",
     "name": "ubuntu",
     "version": "20.04.4"
   }
