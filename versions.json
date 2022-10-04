@@ -16,7 +16,7 @@
   },
   {
     "env": "macos-12",
-    "swift": "5.6.1",
+    "swift": "5.7",
     "name": "macOS",
     "version": "12.6"
   },
