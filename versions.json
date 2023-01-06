@@ -8,7 +8,6 @@
   },
   {
     "env": "macos-11",
-    "latest": "true",
     "swift": "5.5.2",
     "xcodes": "11.7 12.4 12.5.1 13.0 13.1 13.2.1",
     "name": "macOS",
@@ -16,6 +15,7 @@
   },
   {
     "env": "macos-12",
+    "latest": "true",
     "swift": "5.7",
     "name": "macOS",
     "version": "12.6.2"
