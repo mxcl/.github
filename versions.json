@@ -30,7 +30,7 @@
     "env": "ubuntu-20.04",
     "swift": "5.7.3",
     "name": "ubuntu",
-    "version": "20.04.5"
+    "version": "20.04.6"
   },
   {
     "env": "ubuntu-22.04",
